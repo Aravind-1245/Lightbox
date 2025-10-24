@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 40px;
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .gallery-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+    }
+
+    .gallery-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .gallery-item:hover img {
+      transform: scale(1.1);
+    }
+
+    .caption {
+      position: absolute;
+      bottom: 10px;
+      left: 10px;
+      color: #fff;
+      font-size: 1rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+
+    .gallery-item:hover .caption {
+      opacity: 1;
+    }
+
+    /* Lightbox */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.9);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .lightbox img {
+      max-width: 90%;
+      max-height: 80%;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+    }
+
+    .lightbox .close,
+    .lightbox .prev,
+    .lightbox .next {
+      position: absolute;
+      color: white;
+      font-size: 2.5rem;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .lightbox .close {
+      top: 20px;
+      right: 30px;
+    }
+
+    .lightbox .prev {
+      left: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .lightbox .next {
+      right: 30px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+  </style>
+</head>
+
+<body>
+  <h1>✨ Our Gallery</h1>
+
+  <div class="gallery-container">
+    <div class="gallery-item"><img src="images/animal-9650392_1280.webp" alt="Dear">
+      <div class="caption">Dear</div>
+    </div>
+    <div class="gallery-item"><img src="images/canon-5158887_1280.jpg" alt="Camera">
+      <div class="caption">Camera</div>
+    </div>
+    <div class="gallery-item"><img src="images/download.webp" alt="Forest">
+      <div class="caption">Forest</div>
+    </div>
+    <div class="gallery-item"><img src="images/ferris-wheel-8461874_1280.jpg" alt="Giant Wheel">
+      <div class="caption">Giant Wheel</div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="gallery-container">
+    <div class="gallery-item"><img src="images/helicopter-8023696_1280.jpg" alt="Chopper">
+      <div class="caption">Chopper</div>
+    </div>
+    <div class="gallery-item"><img src="images/image__1572626559.jpg" alt="Galley">
+      <div class="caption">Galley</div>
+    </div>
+    <div class="gallery-item"><img src="images/istockphoto-1442179368-1024x1024.jpg" alt="Sea">
+      <div class="caption">Sea</div>
+    </div>
+    <div class="gallery-item"><img src="images/kobe-4975863_1280.jpg" alt="Street">
+      <div class="caption">Street</div>
+    </div>
+  </div>
+
+  <br>
+
+  <div class="gallery-container">
+    <div class="gallery-item"><img src="images/lighthouse-9761567_1280.webp" alt="Light House">
+      <div class="caption">Light House</div>
+    </div>
+    <div class="gallery-item"><img src="images/mountains-9473304_1280.webp" alt="Mountain">
+      <div class="caption">Mountain</div>
+    </div>
+    <div class="gallery-item"><img src="images/office-730681_1280.jpg" alt="Room">
+      <div class="caption">Room</div>
+    </div>
+    <div class="gallery-item"><img src="images/technology-2125547_1280.jpg" alt="Cini Camera">
+      <div class="caption">Cini Camera</div>
+    </div>
+  </div>
+
+
+  <br>
+
+  <div class="gallery-container">
+    <div class="gallery-item"><img src="images/sunset-3726030_1280.jpg" alt="Sunset">
+      <div class="caption">Sunset</div>
+    </div>
+    <div class="gallery-item"><img src="images/railway-2818748_1280.jpg" alt="Train Track">
+      <div class="caption">Train Track</div>
+    </div>
+    <div class="gallery-item"><img src="images/photo-1757922588932-cb0fa4dda952.avif" alt="Car">
+      <div class="caption">Car</div>
+    </div>
+    <div class="gallery-item"><img src="images/OIP.webp" alt="Lone Boat">
+      <div class="caption">Lone Boat</div>
+    </div>
+  </div>
+
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <span class="close" onclick="closeLightbox()">&times;</span>
+    <span class="prev" onclick="changeImage(-1)">&#10094;</span>
+    <img id="lightbox-img" src="" width="500px" height="500px">
+    <span class="next" onclick="changeImage(1)">&#10095;</span>
+  </div>
+
+  <script>
+    const galleryItems = Array.from(document.querySelectorAll('.gallery-item img'));
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    let currentIndex = 0;
+
+    // Open image in lightbox
+    galleryItems.forEach((img, index) => {
+      img.addEventListener('click', () => {
+        currentIndex = index;
+        showLightbox();
+      });
+    });
+
+    function showLightbox() {
+      lightbox.style.display = 'flex';
+      lightboxImg.src = galleryItems[currentIndex].src;
+    }
+
+    function closeLightbox() {
+      lightbox.style.display = 'none';
+    }
+
+    function changeImage(dir) {
+      currentIndex = (currentIndex + dir + galleryItems.length) % galleryItems.length;
+      lightboxImg.src = galleryItems[currentIndex].src;
+    }
+
+    // Close when clicking outside image
+    lightbox.addEventListener('click', (e) => {
+      if (e.target === lightbox) closeLightbox();
+    });
+
+    // Keyboard controls
+    document.addEventListener('keydown', (e) => {
+      if (lightbox.style.display === 'flex') {
+        if (e.key === 'ArrowRight') changeImage(1);
+        if (e.key === 'ArrowLeft') changeImage(-1);
+        if (e.key === 'Escape') closeLightbox();
+      }
+    });
+
+    // Mouse click navigation (left half = prev, right half = next)
+    lightbox.addEventListener('mousedown', (e) => {
+      if (e.target === lightboxImg) {
+        const rect = lightboxImg.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        if (x < rect.width / 2) {
+          changeImage(-1); // left side
+        } else {
+          changeImage(1); // right side
+        }
+      }
+    });
+  </script>
+</body>
+
+</html>
